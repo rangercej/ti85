@@ -1,0 +1,282 @@
+POLYSTUF - 4 Programs for dealing with polynomials
+----begin documentation----
+
+Here's a set of programs for dealing with polynomials:
+   QUAD - Solve a quaderatic. Will solve by completing the square or by 
+          formula - whichever gives a non-complex answer
+   PMUL - Multiply out a polynomial
+   PARTIAL - Partial fractions programs. Available seperately as PARTIAL.85
+          from the archive. Originally by T.K., extended by me.
+   CLXCV - Add on for use with PARTIAL.
+
+None are edit-locked.
+
+QUAD
+----
+Solves Ax^2+Bx+C=0
+
+Enter A, B and C as prompted. Returns the answer is (x+a)(x+b) 
+or a[(x+b)^2+c)] depending on a test for complex numbers.
+
+
+PMUL
+----
+Solve a polynomial multiplication.
+
+eg. (2x^2+3x+4)(4x+6)(3x^3-5x)
+
+When prompted (oR=?) enter your polynomial as a matrix. Taking the above
+example:
+   [[0,2,3,4][0,0,4,6][3,0,0,-5]]
+
+Note that each part of the matrix must contain the same number of elements, so
+padding out is essential - 4x+6 -> 0x^3 + 0x^2 + 4x + 6 etc...
+
+Answer is returned in vector:
+   [24,72,102,32,-120,-170,-120]
+
+which is the same as:
+   24x^6 + 72x^5 + 102x^4 + 32x^3 - 120x^2 - 170x - 120
+
+
+PARTIAL
+-------
+This comes from the documentation in PARTIAL.85...
+"Partial fraction decomposition program for the TI-85, works also with 
+multiple and complex roots, needs only 1113 bytes, by Thomas Kutzschebauch
+
+This partial fraction program works with the method of the coefficient
+comparison. It doesn't need to derivate and is that's why much shorter  
+than PRTLFRAC.
+
+FEATURES
+- works with multiple roots
+- works with complex roots and calculates the result in the form
+            A*x+B
+          ----------
+            2
+           x +px +q
+
+RUNNING "PARTIAL"
+You don't have to define variables outside the program. Simply start it.  
+Now you must enter p(x) (the numerator) and q(x) (the denominator).
+I have programmed to enter p(x) and q(x) as a vector, that means you
+have to enter both with the [,] brackets. I think this is better because 
+you have easier access over the keyboard than to the {,} brackets (internally 
+I convert it into a list, it's only a user-friendly feature).
+Be sure the order of the numerator is lower than the order of the denominator.
+Otherwise you will get an error message. 
+Don't forget a "0" if it's necessary:
+  4      2
+ x  + 2 x + 3 x = [1, 0, 2, 3, 0] !
+I don't know if it's better to enter the roots or the coefficients of the
+denominator. I decided to enter the coefficients, then I calculate the roots
+of it. If you wish to change it just modify the program, it's easy.
+Then, after a while, you will get the results. The roots and the 
+corresponding coefficients in the same order.
+You will get the result
+                            _
+Roots=        [ a, b, b, c, c ] 
+Coefficients= [ A,B1,B2,C1,C2 ]
+
+that means
+
+  p(x)             A       B1      B2        C1*x+C2
+ ------ = f(x) = -----  + ----- + ------  + ----------
+                                       2             _
+  q(x)           (x-a)    (x-b)   (x-b)     (x-c)*(x-c)
+
+a - single root
+b - double root   _
+c - complex root, c - conjugate complex root
+ 
+It makes no sense to tear up the complex roots. I use the form
+   
+          C1*x+C2
+        -----------  
+                 _
+        (x+c)*(x+c) .             
+        
+Note: If you want the form       C1         C2
+                              -------- + --------                
+                                             _
+                                (x+c)     (x+c)
+just delete line 35 of my program which starts with "2*real j(v) ...".
+But nobody uses this form.
+
+Now you see a menu:           
+Again: runs the program again     _        2
+Trans: You can transform (x+c)*(x+c) into x +px+q
+       to get the form
+                        C1*x+C2
+                       ---------
+                         2
+                        x +px+q.
+
+Save: For your review you can save the results. The coefficients are 
+      stored in "coef" and the roots in "root".
+ 
+Exit: Well, what do you think will happen?
+
+EXAMPLE:
+                   3       2
+       p(x)     3 x  + 12 x  + 19 x +18
+f(x)= ------ = ----------------------------
+                4      3       2
+       q(x)    x  + 4 x  + 10 x  + 12 x + 5
+
+YOU must enter: p(x)= [3,12,19,18]
+                q(x)= [1,4,10,12,5]
+
+YOU will get the result:
+Roots=        [ (-1,2), (-1,-2), -1, -1]
+Coefficients= [ 2, 3, 1, 2]
+
+That means:
+              2x+3                1       2
+F(x)=  ---------------------- + ----- + -------
+                                              2
+       (x+(-1,2))*(x+(-1,-2))   (x+1)    (x+1)
+                                                     
+Now you can choose "Trans":
+        Following is displayed
+        Root= (-1,2)
+        p= 2
+        q= 5
+
+Press "Next" for the next complex root (in this example isn't another),
+"Quit" to get to the menu before or "Exit" to exit the program.
+
+             
+Now you have this result:             
+
+             2x+3         1         2
+    F(x)= ----------- + ------- + -------  
+            2                          2
+           x + 2x+ 5     (x+1)     (x+1)            
+
+INFORMATON:
+used variables: i,j,l,m,o,p,q,v,x
+All internally used vectors, matrices and lists will be converted into
+real at the end of the program to save memory.
+
+
+Be free to use, change and copy this program.
+If you have any indications, opinions or questions please let me know.
+
+Mail address:             e-mail:
+Thomas Kutzschebauch      thomas.kutzschebauch@e-technik.tu-chemnitz.de
+Gluckstr. 8               
+D-09120 Chemnitz          
+Germany
+
+Thomas Kutzschebauch, Technical University of Chemnitz
+(FTP: 134.109.132.51 (saturn.hrz.tu-chemnitz.de))
+      
+And please excuse my English, it's not my first language. "
+
+OKay...that clear? I've added a function in F2: Conv. It just does some basic
+flipping of the roots (which are negated) and coeffs (nothing happens) and
+shows it as numerator and denominator.
+
+CLXCV
+-----
+This does the same thing as hitting TRANS in partial. It's provided here for
+ease of use.
+
+Enter the compex roots in a vector, p and q are calculated and displayed.
+Ans(2,?) and Ans(2,?+1) can be used if running straight after partial.
+
+
+Apart from QUAD, all the others can be used together is a single problem. For
+example:
+        2x+3
+  -----------------
+  (2x+5)(2x^2+3x-2)
+
+First run PMUL to multiply out the second line:
+   R=[[0,2,5][2,3,-2]]
+
+Now run PARTIAL. The result from PMUL is in Ans ([2nd] [Ans]) so:
+   p(x)=[2,3]
+   q(x)=Ans
+
+This example does not give complex results. However if it did then we could
+(if we've quit PARTIAL) run CLXCV to convert the complex roots into x^2+qx+q.
+Read the PARTIAL documentation about the TRANS button for more info. Find
+the complex roots in Ans, (on the 2nd row) and enter them into CLXCV as a 
+vector as follows:
+   R=[Ans(2,1),Ans(2,2)]
+
+Then, if (for example) Ans=[[(0,0)        (.5,0)     ]
+                            [(.75,-1.199) (.75,1.199)]]
+
+Then Ans(2,1) = (.75,-1.199), and Ans(2,2) = (.75,1.199)
+And CLXCV would return:
+     [3/2 2.00101]
+Which correspnds to:
+     x^2+3/2x+2.00101
+
+
+Chris Johnson:
+   cjohnso0@pine.shu.ac.uk
+   http://www.csv.warwick.ac.uk/~xuubx/ti/index.html
+
+----end documentation----
+----begin ascii----
+----end ascii----
+----begin uue----
+begin 644 polystuf.85g
+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
+C;&XZ(&%;*'@K8BD2*V-=`&\TQTQNZ3P#06YS"F_>;^-O>I0`
+`
+end
+----end uue----

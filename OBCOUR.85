@@ -1,0 +1,81 @@
+OBCOUR - Obstacle course game!
+----begin documentation----
+
+Obstacle course game - Chris Johnson 1995
+
+OBJECT: To move yourself (+) from one side of the screen to the other, avoiding
+   the obstacles (#) that are constantly appearing.
+
+HOW: Use the cursor keys (up, down and right) to move the cursor (+). You can't
+   move left.
+
+Pretty easy really...(he lied easily... ;-)
+
+Queries, bug problems etc... email me at cjohnso0@pine.shu.ac.uk
+Take a look at my TI page, which has other programs by me.
+
+This program isn't nessasscrialy copyrighted (I know that there's a spelling
+mistake)...however, if you really want it to be, it is, otherwise it ain't :)
+
+Thanks.
+Chris J. "Nothing Else Matters"
+EMail:   cjohnso0@pine.shu.ac.uk   <---- Term time
+         xuubx@csv.warwick.ac.uk   <---- When I'm on holiday
+WWW:     http://www.csv.warwick.ac.uk/~xuubx/index.html
+TI Page: http://www.csv.warwick.ac.uk/~xuubx/ti/index.html
+
+----end documentation----
+----begin ascii----
+\START\
+\COMMENT=Obstacle course - CEJ '95                 
+\NAME=OBCOUR
+\FILE=obcour.85P
+21\->\\LC-sigma\A:8\->\\LC-sigma\B
+ClLCD:{\LC-sigma\A,\LC-sigma\B}\->\dim \LC-sigma\Z:Fill(0,\LC-sigma\Z)
+For(\LC-sigma\K,1,\LC-sigma\A):1\->\\LC-sigma\Z(\LC-sigma\K,1)
+1\->\\LC-sigma\Z(\LC-sigma\K,\LC-sigma\B):End
+For(\LC-sigma\L,1,\LC-sigma\B):1\->\\LC-sigma\Z(1,\LC-sigma\L)
+1\->\\LC-sigma\Z(\LC-sigma\A,\LC-sigma\L):End
+1\->\\LC-sigma\Q:4\->\\LC-sigma\W
+0\->\\LC-sigma\Z(\LC-sigma\Q,\LC-sigma\W)
+2\->\\LC-sigma\Z(\LC-sigma\A,int (rand*4+3))
+For(\LC-sigma\L,1,\LC-sigma\B):For(\LC-sigma\K,1,\LC-sigma\A)
+If \LC-sigma\Z(\LC-sigma\K,\LC-sigma\L)==1:Outpt(\LC-sigma\L,\LC-sigma\\#\
+K,"#")
+End:End
+Lbl Loop
+Outpt(\LC-sigma\W,\LC-sigma\Q,"+")
+If \LC-sigma\Z(\LC-sigma\Q,\LC-sigma\W)==1:Then
+Disp "  Crash!!  ":Stop:End
+If \LC-sigma\Z(\LC-sigma\Q,\LC-sigma\W)==2:Then
+Disp "  Well done!!  ":Stop:End
+getKy\->\\LC-sigma\J
+int (rand*\LC-sigma\A+1)\->\\LC-sigma\X
+int (rand*\LC-sigma\B+1)\->\\LC-sigma\Y
+1\->\\LC-sigma\Z(\LC-sigma\X,\LC-sigma\Y):Outpt(\LC-sigma\Y,\LC-sigma\X\#\
+,"#")
+If \LC-sigma\J==25:\LC-sigma\W-1\->\\LC-sigma\W
+If \LC-sigma\J==34:\LC-sigma\W+1\->\\LC-sigma\W
+If \LC-sigma\J==26:\LC-sigma\Q+1\->\\LC-sigma\Q
+Goto Loop
+\STOP\
+----end ascii----
+----begin uue----
+begin 644 obcour.85p
+M*BI423@U*BH:#`!/8G-T86-L92!C;W5R<V4@+2!#14H@)SDU("`@("`@("`@
+M("`@("`@("`<`@H`#@(2!D]"0T]54@X"#`)$,C$`"S3'06Y$.``+-,=";^QN
+M#C3'02\TQT(/"[\TQUIN[Q!$,``O-,=:$6_=$#3'2R]$,0`O-,=!$6Y$,0`+
+M-,=:$#3'2R]$,0`1;T0Q``LTQUH0-,=++S3'0A%NWF_=$#3'3"]$,0`O-,="
+M$6Y$,0`+-,=:$$0Q`"\TQTP1;T0Q``LTQUH0-,=!+S3'3!%NWF]$,0`+-,=1
+M;D0T``LTQU=O1#``"S3'6A`TQU$O-,=7$6]$,@`+-,=:$#3'02^E$$%P1#0`
+M8$0S`!$1;]T0-,=,+T0Q`"\TQT(1;MT0-,=++T0Q`"\TQT$1;]@TQUH0-,=+
+M+S3'3!%01#$`;NL0-,=,+S3'2R\M(P`1;]YNWF_@3&]O<`!OZQ`TQU<O-,=1
+M+RTK`!%OV#3'6A`TQU$O-,=7$5!$,0!NV6_I+2`@0W)A<V@A(2`@`&[C;MYO
+MV#3'6A`TQU$O-,=7$5!$,@!NV6_I+2`@5V5L;"!D;VYE(2$@(`!NXV[>;T,+
+M-,=*;Z4007`TQT%@1#$`$0LTQUAOI1!!<#3'0F!$,0`1"S3'66]$,0`+-,=:
+M$#3'6"\TQUD1;NL0-,=9+S3'6"\M(P`1;]@TQTI01#(U`&XTQU=A1#$`"S3'
+M5V_8-,=*4$0S-`!N-,=78$0Q``LTQU=OV#3'2E!$,C8`;C3'46!$,0`+-,=1
+,;^$!%DQO;W``;QZM
+`
+end
+----end uue----

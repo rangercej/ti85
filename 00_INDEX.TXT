@@ -1,0 +1,12 @@
+Directory of ~xuubx/ti/prgs/ti85
+================================
+
+All files here are uuencoded. See ~xuubx/ti/prgs/msdos for a suitable decoder.
+
+00_INDEX.TXT      This file!!!
+HELLO.UUE         Hello World! Program for ZShell
+ICEBERG.85        Iceberg game for TI-85
+OBCOUR.85         Obstacle course game for TI-85
+POLYSTUF.85       Polynomial programs for the TI-85
+RPN3.85           Revere Polish Notation evaluator version 3. TI-85.
+TAB2.85           Table of values program for TI-85

@@ -1,0 +1,167 @@
+ICEBERG - Escape an enemy ship, whilst avoiding the icebergs!
+----begin documentation----
+
+Your winding your way home in waters notorious for icebergs...as you travel,
+you notice that there is an enemy ship taling you. However, some quirk of fate
+means that its radar can detect you, but not the icebergs, so your best chance
+of survival is to try and get it to hit one...
+
+The calculator will show a grid on the screen. The symbols are:
+        Y - Your ship
+        Z - Enemy ship
+        * - Iceberg
+        . - Safe water
+
+You can move North, South, East or West using the cursor keys:
+        Up    - North
+        Down  - South
+        Left  - West
+        Right - East
+
+You can only move when the display shows OKay. When redrawing and calculating,
+Wait will appear instead. 
+
+The enemy can also move diagonally - you can't. As soon as you are in any of
+the surrounding 8 squares round the enemy, you've been caught.
+
+Good luck.
+
+Hint: to make it harder or easier, fiddle about with the numbers in line 9
+(which starts int(rand*10+8)->oN). Changing 8 to a higher number increases the
+minimum amount of icebergs. Changing the 10 to a higher number increases the
+maximum amount of icebergs. Currently set to 8 -> 17 icebergs. Grid size is
+14 x 8 (112 positions).
+
+All variables start with a lower case sigma (an o with a bit of a tail on the 
+top)
+
+Queries, bugs, etc...mail me at cjohnso0@pine.shu.ac.uk
+
+Chris J. "Nothing Else Matters"
+Email:   cjohnso0@pine.shu.ac.uk   <--- Term time
+         xuubx@csv.warwick.ac.uk   <--- Holidays
+WWW:     http://www.csv.warwick.ac.uk/~xuubx/index.html
+TI-Page: http://www.csv.warwick.ac.uk/~xuubx/ti/index.html
+
+----end documentation----
+----begin ascii----
+\START\
+\COMMENT=Program file dated 08/08/95, 11:03
+\NAME=ICEBERG
+\FILE=iceberg.85P
+{14,8}\->\dim \LC-sigma\B:Fill(0,\LC-sigma\B)
+ClLCD:Disp "Iceberg"
+Disp "Original version for"
+Disp "Speccy, C64 etc..."
+Disp "Converted to '85 by"
+Disp "Chris J '95"
+Menu (1,"Play",Go,5,"Quit",SStop)
+Lbl Go
+Int(Rand*10+8)\->\\LC-sigma\N
+For(\LC-sigma\I,1,\LC-sigma\N)
+Int(Rand*14+1)\->\\LC-sigma\SX
+Int(Rand*8+1)\->\\LC-sigma\SY
+23\->\\LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)
+End
+Lbl En
+Int(Rand*14+1)\->\\LC-sigma\SX
+Int(Rand*8+1)\->\\LC-sigma\SY
+If \LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)\<>\0:Goto En
+63\->\\LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)
+Lbl Yo
+Int(Rand*8+1)\->\\LC-sigma\YX
+Int(Rand*8+1)\->\\LC-sigma\YY
+If \LC-sigma\B(\LC-sigma\YX,\LC-sigma\YY)\<>\0:Goto Yo
+62\->\\LC-sigma\B(\LC-sigma\YX,\LC-sigma\YY)
+ClLCD
+Lbl Game
+For(\LC-sigma\Y,1,8)
+For(\LC-sigma\X,1,14)
+If \LC-sigma\B(\LC-sigma\X,\LC-sigma\Y)==0:Outpt(\LC-sigma\Y,\LC-sigma\\#\
+X,".")
+If \LC-sigma\B(\LC-sigma\X,\LC-sigma\Y)==23:Outpt(\LC-sigma\Y,\LC-sigma\\#\
+X,"*")
+If \LC-sigma\B(\LC-sigma\X,\LC-sigma\Y)==62:Outpt(\LC-sigma\Y,\LC-sigma\\#\
+X,"Y")
+If \LC-sigma\B(\LC-sigma\X,\LC-sigma\Y)==63:Outpt(\LC-sigma\Y,\LC-sigma\\#\
+X,"Z")
+End:End
+0\->\\LC-sigma\B(\LC-sigma\YX,\LC-sigma\YY)
+Outpt (1,16,"OKay")
+Lbl Key
+GetKy\->\\LC-sigma\DS
+If \LC-sigma\DS==0:Goto Key
+Outpt (1,16,"Wait")
+\LC-sigma\YY+((\LC-sigma\DS==34) and (\LC-sigma\YY\<>\8))\->\\LC-sigma\\#\
+YY
+\LC-sigma\YY-((\LC-sigma\DS==25) and (\LC-sigma\YY\<>\1))\->\\LC-sigma\\#\
+YY
+\LC-sigma\YX+((\LC-sigma\DS==26) and (\LC-sigma\YX\<>\14))\->\\LC-sigma\\#\
+YX
+\LC-sigma\YX-((\LC-sigma\DS==24) and (\LC-sigma\YX\<>\1))\->\\LC-sigma\\#\
+YX
+If \LC-sigma\B(\LC-sigma\YX,\LC-sigma\YY)==63:Goto Lose
+If \LC-sigma\B(\LC-sigma\YX,\LC-sigma\YY)==23:Goto Sink
+62\->\\LC-sigma\B(\LC-sigma\YX,\LC-sigma\YY)
+0\->\\LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)
+\LC-sigma\SX+sign(\LC-sigma\YX-\LC-sigma\SX)\->\\LC-sigma\SX
+\LC-sigma\SY+sign(\LC-sigma\YY-\LC-sigma\SY)\->\\LC-sigma\SY
+If \LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)==62:Goto Lose
+If \LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)==23:Goto Win
+63\->\\LC-sigma\B(\LC-sigma\SX,\LC-sigma\SY)
+Goto Game
+Lbl Lose
+ClLCD
+Disp "You've been caught"
+Goto SStop
+Lbl Win
+ClLCD
+Disp "You're safe, he's"
+Disp "hit an iceberg"
+Goto SStop
+Lbl Sink
+ClLCD
+Disp "You've hit an ice-"
+Disp "berg, bad luck."
+Lbl SStop
+0\->\\LC-sigma\B
+Stop
+
+\STOP\
+----end ascii----
+----begin uue----
+begin 644 iceberg.85p
+M*BI423@U*BH:#`!0<F]G<F%M(&9I;&4@9&%T960@,#@O,#@O.34L(#$Q.C`S
+M````````.@`$!0L`]002!TE#14)%4D?U!/,$`'LQ-"PX?1QD:6T@QT(Z1FEL
+M;"@P+,="*=9#;$Q#1#I$:7-P("))8V5B97)G(M9$:7-P(")/<FEG:6YA;"!V
+M97)S:6]N(&9O<B+61&ES<"`B4W!E8V-Y+"!#-C0@971C+BXN(M9$:7-P(")#
+M;VYV97)T960@=&\@)S@U(&)Y(M9$:7-P(")#:')I<R!*("<Y-2+6365N=2`H
+M,2PB4&QA>2(L1V\L-2PB475I="(L4U-T;W`IUDQB;"!';]9);G0H4F%N9"HQ
+M,"LX*1S'3M9&;W(HQTDL,2S'3BG626YT*%)A;F0J,30K,2D<QU-8UDEN="A2
+M86YD*C@K,2D<QU-9UC(S',="*,=36"S'4UDIUD5N9-9,8FP@16[626YT*%)A
+M;F0J,30K,2D<QU-8UDEN="A286YD*C@K,2D<QU-9UDEF(,="*,=36"S'4UDI
+M&#`Z1V]T;R!%;M8V,QS'0BC'4U@LQU-9*=9,8FP@66_626YT*%)A;F0J."LQ
+M*1S'65C626YT*%)A;F0J."LQ*1S'65G6268@QT(HQUE8+,=962D8,#I';W1O
+M(%EOUC8R',="*,=96"S'65DIUD-L3$-$UDQB;"!'86UEUD9O<BC'62PQ+#@I
+MUD9O<BC'6"PQ+#$T*=9)9B#'0BC'6"S'62D]/3`Z3W5T<'0HQUDLQU@L(BXB
+M*=9)9B#'0BC'6"S'62D]/3(S.D]U='!T*,=9+,=8+"(J(BG6268@QT(HQU@L
+MQUDI/3TV,CI/=71P="C'62S'6"PB62(IUDEF(,="*,=8+,=9*3T]-C,Z3W5T
+M<'0HQUDLQU@L(EHB*=9%;F0Z16YDUC`<QT(HQUE8+,=962G63W5T<'0@*#$L
+M,38L(D]+87DB*=9,8FP@2V5YUD=E=$MY',=$4]9)9B#'1%,]/3`Z1V]T;R!+
+M97G63W5T<'0@*#$L,38L(E=A:70B*=;'65DK*"C'1%,]/3,T*2!A;F0@*,=9
+M61@X*2D<QUE9UL=962TH*,=$4ST],C4I(&%N9"`HQUE9&#$I*1S'65G6QUE8
+M*R@HQT13/3TR-BD@86YD("C'65@8,30I*1S'65C6QUE8+2@HQT13/3TR-"D@
+M86YD("C'65@8,2DI',=96-9)9B#'0BC'65@LQUE9*3T]-C,Z1V]T;R!,;W-E
+MUDEF(,="*,=96"S'65DI/3TR,SI';W1O(%-I;FO6-C(<QT(HQUE8+,=962G6
+M,!S'0BC'4U@LQU-9*=;'4U@K<VEG;BC'65@MQU-8*1S'4UC6QU-9*W-I9VXH
+MQUE9+<=362D<QU-9UDEF(,="*,=36"S'4UDI/3TV,CI';W1O($QO<V76268@
+MQT(HQU-8+,=362D]/3(S.D=O=&\@5VENUC8S',="*,=36"S'4UDIUD=O=&\@
+M1V%M9=9,8FP@3&]S9=9#;$Q#1-9$:7-P(")9;W4G=F4@8F5E;B!C875G:'0B
+MUD=O=&\@4U-T;W#63&)L(%=I;M9#;$Q#1-9$:7-P(")9;W4G<F4@<V%F92P@
+M:&4G<R+61&ES<"`B:&ET(&%N(&EC96)E<F<BUD=O=&\@4U-T;W#63&)L(%-I
+M;FO60VQ,0T361&ES<"`B66]U)W9E(&AI="!A;B!I8V4M(M9$:7-P(")B97)G
+D+"!B860@;'5C:RXBUDQB;"!34W1O<-8P',="UE-T;W#6UD+*
+`
+end
+----end uue----
+

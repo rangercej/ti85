@@ -1,0 +1,247 @@
+RPN3 - Reverse Polish Evaluator
+----begin documentation----
+
+Well, after reading through some old TI list mail, I found a nice one about
+reverse polish notation.
+
+Having done a Pascal program to do this, I thought why not do one for the
+'85...so I did...and here it is...version 3.
+
+Chris Johnson.
+Email:   cjohnso0@pine.shu.ac.uk
+WWW:     http://pine.shu.ac.uk/~cjohnso0/index.shtml
+
+Oh, and by the way, it's edit-locked.
+
+I'd also like to point out the following. Throughout this 'manual', the
+following apply:
+        RPN means Reverse Polish Notation - It does NOT mean the program
+        RPN3 is the program !!
+
+Oh, and \LC-sigma\ is the lower case sigma ([2nd] [CHAR] [F2] [MORE]
+ [MORE] [F2])
+
+
+What's new in version 3
+-----------------------
+Version 3 has got no built in help, and has one extra command to show the 
+whole of the stack. The size of the program is now 1796 bytes, compared to 
+the over 3K of the original version.
+
+And its still edit locked.
+
+
+About Reverse Polish Notation (RPN)
+-----------------------------------
+RPN is an alternative way to denote mathematical expressions, which sets them
+in an order that compters etc... find easy to evaluate.
+
+RPN is stack based. This means that all values in an expression will be 
+pushed on and off a stack. This includes any answers. The easiest way to 
+explain is an example. So here it is:
+
+RPN expression: 2 4 * 9 3 / +
+Is evaluated as follows (the ^ indicates what stage of the operation that
+we're at):
+      STAGE        FORMULA        STACK
+        0       2 4 * 9 3 / +     |   |
+                                  |   |
+                                  +---+
+        
+        1       2 4 * 9 3 / +     |   |
+                 ^                | 2 |
+                                  +---+
+        
+        2       2 4 * 9 3 / +     | 4 |
+                   ^              | 2 |
+                                  +---+
+        
+        3       2 4 * 9 3 / +     |   |
+                     ^            | 8 |
+                                  +---+
+        
+        4       2 4 * 9 3 / +     | 9 |
+                       ^          | 8 |
+                                  +---+
+                                    3
+        5       2 4 * 9 3 / +     | 9 |
+                         ^        | 8 |
+                                  +---+
+        
+        6       2 4 * 9 3 / +     | 3 |
+                           ^      | 8 |
+                                  +---+
+        
+        7       2 4 * 9 3 / +     |   |
+                             ^    | 11|
+                                  +---+
+
+OKay...got the idea? 
+        2 4 * 9 3 / + represents 2*4 + 9/3
+
+Similarly, 4 7 + represents 4+7
+
+And more complex examples: 
+        
+        10 \sqrt\ sin 4 * 3 (-) e^ * 7 log 0.5 / cos 6 * 7 e^ * +
+goes to:
+          -3sin(\sqrt\ 10)      7cos(log 7/0.5)
+       4e^                 + 6e^
+
+And:
+        1 / pi sin^-1 4 7 sin * + 4 3 ln + \sqrt\ * e^ 3 8 \x-root\ +
+goes to:
+          (4 sin 7 + sin^-1 (1/pi))*\sqrt\(4+ln 3)
+        e^                                         + 3\x-root\8
+
+(phew!)
+
+Notes:
+     \sqrt\     square root
+     (-)        negate (the one next to ENTER)
+     pi         pi (suprisingly enough)
+     sin^-1     arcsine ([2nd] [sin])
+     \x-root\   xth root ([2nd] [math] [misc] [more] [F4])
+
+=========================================================================
+
+How to use the program
+----------------------
+
+Right, now that's out of the way, all about how to use it.
+
+The main menu gives two options - Go, Quit
+      Go    - Enter the RPN editor
+      Quit  - Err...I'll let you work this one out ;-)
+
+Once in the editor, type the RPN expression in in any of the following ways
+(taking 2 4 * 9 3 / + as the example):
+
+Bit at a time:
+:2
+:4
+:*
+etc...
+
+All at once:
+:2,4,*,9,3,/,+
+
+A bit of both:
+:2,4,*
+:9,3,/
+:+
+
+To get the answer (current top of stack) enter an equals
+:2,4,*,9,3,/,+
+:=
+Current:
+            11
+or
+:2,4,*,9,3,/,+,=
+Current:
+            11
+
+Note each bit has to be seperated be a comma.
+
+Special commands in the editor
+------------------------------
+The editor has several special commands (well three actually, several sounds
+better though ;-)
+   Command    Keys       Action
+      =      Equals    Show top of stack (result of last operation, or last 
+                       entered number).
+      .      decimal   Show the answer (top of stack) and quit. Has to be ONLY
+              point    character on the line.
+     ::    Two colons  Clear the stack. 'Cleared' will show on the display.
+      ?     Question   Show the whole of the stack.
+              mark
+
+
+System resources
+----------------
+RPN3 takes up 1796 bytes (well when I checked mine)
+All variables start with \LC-sigma\, so there's \LC-sigma\A, \LC-sigma\D etc...
+
+Variables you might want to know about...
+\LC-sigma\B  - (Vector) The stack
+\LC-sigma\C  - (String) What you entered last
+Ans        - (Real/complex) The final answer. Set when . is entered.
+
+All together variables take about 500/600 bytes. (Size of stack will vary).
+
+
+Limitations
+-----------
+This cannot cope with Matrices, Vectors or Lists. Only real or complex
+numbers, equations, variables.
+
+Also any functions that require braketed arguments (eg. pEval(, max(, min( 
+etc...) cannot be used.
+
+Other functions that I know can't be used:
+    All functions to do with vectors/matrices etc...
+    The 'bit' functions (rotL, rotR, shftR, shftL)
+
+Anything with parathensis is classed as a single number. RPN does not cater 
+for parathensis. The only numbers that have parathensis in on the '85 would
+be complex numbers. eg. (4,3) etc... . You could enter (4+3) if you wanted.
+This would evaluate to 7, but entering 4+3 will cause an error. (To get round
+this could put 4+3 into an equation; eg. A=4+3, and use that).
+
+As far as I know, RPN does not know about implied multiplication. (If you
+don't know what that is, read pages 1-8 and 1-9 of the manual!).
+
+Hmm...what else...errr...nope. I think that's it.
+
+Any problems, queries, mail me at cjohnso0@pine.shu.ac.uk
+
+----end documentation----
+----begin ascii----
+----end ascii----
+----begin uue----
+begin 644 rpn3.85p
+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
+,00!O[&_C;V]O_R5P
+`
+end
+----end uue----

@@ -1,0 +1,177 @@
+TAB2 - Table a function program!
+----begin documentation----
+
+TAB2 - Tabulate up to 3 functions, similar to a built in TI-82 function (why
+     there isn't one on the '85 I don't know...take it up with TI).
+
+Starting: Just run TAB2 from the [PRGM] [NAMES] menu, or type TAB2 directly into
+     the home screen.
+
+Use: At first your given a menu, and some info. The program tabulates funtions
+     in y1, y2 and y3 - these can be set from the [GRAPH] menu (in FUNC mode)
+     or by typing directly into the home screen.
+
+     Menu Options: Range (F1): Here's where you set the starting x (tx) and 
+            the increment (delta-tx). Hit F1 or F2 to set tx or delta-tx. F5
+            will take you back to the previous menu.
+
+     Menu Options: Table (F2): Yep! The main tabulation bit. If you haven't
+            defined y1, y2 or y3, the program will display ERR 14 UNDEFINED at
+            the top of the screen. Just hit [F5] (Quit), and define y1. (The
+            default function). y3 cannot be used if y2 is not set. y2 cannot be
+            used if y1 is not set.
+
+            Assuming all is well, you'll see a screen of values, the current
+            decimal fix, and a menu.
+
+            Menu options: PgUp   - Show the previous 5 values
+                          PgDn   - Show the next 5 values
+                          y adv  - Show next equation (y1->y2->y3->y1->etc...)
+                                   Warning! Program will crash out with ERR 14
+                                   if it tries to use an undefined y!
+                          Digits - Adjust the decimal fix (up to 6)
+                          Back   - Main menu
+
+     Menu Options: Quit (F5): I'm not sure actually what this does.... :-)
+
+Simple to use really this program...if you're stuck...or you think there's a
+bug...email me at cjohnso0@pine.shu.ac.uk
+
+Find other programs by me at my TI web site!
+
+Chris J - 1995 "Nothing Else Matters"
+Email:   cjohnso0@pine.shu.ac.uk   <--- Term time
+         xuubx@csv.warwick.ac.uk   <--- When I'm on holiday
+WWW:     http://www.csv.warwick.ac.uk/~xuubx/index.html
+TI-Page: http://www.csv.warwick.ac.uk/~xuubx/ti/index.html
+Finger:  cjohnso0@pine.shu.ac.uk
+    or:  xuubx@holly.csv.warwick.ac.uk
+    for where you can find me on talkers and IRC!
+
+----end documentation----
+----begin ascii----
+\START\
+\COMMENT=Program file dated 08/07/95, 12:27
+\NAME=TAB2
+\FILE=tab2.85P
+Lbl Start
+4\->\tdp:Float
+0\->\tx:0.1\->\\UC-Delta\tx
+Lbl Main
+ClLCD
+Disp "Set functions to"
+Disp "tabulate (y1,y2,y3)"
+Disp "from GRAPH menu."
+Menu(1,"Range",TRange,2,"Table",TTable,5,"Quit",TQuit)
+Lbl TRange
+ClLCD
+Outpt(1,2,"tx=")
+Outpt(2,1,"\UC-Delta\tx=")
+Outpt(1,5,tx)
+Outpt(2,5,\UC-Delta\tx)
+Menu(1,"tx",TGTX,2,"\UC-Delta\tx",TGdTX,5,"Back",Main)
+Lbl TGTX
+ClLCD
+Prompt tx
+Goto TRange
+Lbl TGdTX
+ClLCD
+Prompt \UC-Delta\tx
+Goto TRange
+Lbl TTable
+ClLCD
+1\->\tequ
+tx\->\x
+x-\UC-Delta\tx\->\x
+Lbl DoIt
+ClLCD
+Disp "    x         y"
+Outpt(1,16,round(tequ,0))
+if tequ==1 
+ty=y1
+if tequ==2 
+ty=y2
+if tequ==3 
+ty=y3
+For(ti,2,6,1)
+x+\UC-Delta\tx\->\x
+Outpt(ti,1,x)
+if tdp<0:then
+Outpt(ti,11,round(ty))
+else
+Outpt(ti,11,round(ty,tdp))
+End:End
+Outpt(7,1,"Current fix:")
+If tdp<0 
+then
+Outpt(7,13,"Float")
+else
+Outpt(7,13,round(tdp,0))
+end
+Lbl TabMen
+Menu (1,"PgUp",TpgUP,2,"PgDn",DoIt,3,"y adv",tyadv,4,"Digits",Digits,5,\#\
+"Back",Main)
+Lbl TpgUP
+For(ti,1,10,1)
+x-\UC-Delta\tx\->\x
+End
+Goto DoIt
+Lbl tyadv
+tequ+1\->\tequ
+if tequ>3
+1\->\tequ
+For(ti,1,5,1)
+x-\UC-Delta\tx\->\x
+End
+goto DoIt
+Lbl Digits
+tdp+1\->\tdp
+if tdp>6:\(-)\1\->\tdp
+For(ti,1,5,1)
+x-\UC-Delta\tx\->\x
+End
+goto DoIt
+Lbl TQuit
+ClLCD
+Disp "Thanks for using"
+Disp "     TABLE"
+Disp " C.Johnson 1995"
+""\->\tdp:""\->\tequ:""\->\ti:""\->\tx:""\->\\UC-Delta\tx:""\->\ty
+Stop
+
+
+\STOP\
+----end ascii----
+----begin uue----
+begin 644 tab2.85p
+M*BI423@U*BH:#`!0<F]G<F%M(&9I;&4@9&%T960@,#@O,#<O.34L(#$R.C(W
+M````````.@";!`@`CP02!%1!0C*/!(T$`$QB;"!3=&%R=-8T''1D<#I&;&]A
+M=-8P''1X.C`N,1R^='C63&)L($UA:6[60VQ,0T361&ES<"`B4V5T(&9U;F-T
+M:6]N<R!T;R+61&ES<"`B=&%B=6QA=&4@*'DQ+'DR+'DS*2+61&ES<"`B9G)O
+M;2!'4D%02"!M96YU+B+6365N=2@Q+")286YG92(L5%)A;F=E+#(L(E1A8FQE
+M(BQ45&%B;&4L-2PB475I="(L5%%U:70IUDQB;"!44F%N9V760VQ,0T363W5T
+M<'0H,2PR+")T>#TB*=9/=71P="@R+#$L(KYT>#TB*=9/=71P="@Q+#4L='@I
+MUD]U='!T*#(L-2R^='@IUDUE;G4H,2PB='@B+%1'5%@L,BPBOG1X(BQ41V14
+M6"PU+")"86-K(BQ-86EN*=9,8FP@5$=46-9#;$Q#1-90<F]M<'0@='C61V]T
+M;R!44F%N9V763&)L(%1'9%18UD-L3$-$UE!R;VUP=""^='C61V]T;R!44F%N
+M9V763&)L(%1486)L9=9#;$Q#1-8Q''1E<776='@<>-9X+;YT>!QXUDQB;"!$
+M;TETUD-L3$-$UD1I<W`@(B`@("!X("`@("`@("`@>2+63W5T<'0H,2PQ-BQR
+M;W5N9"AT97%U+#`I*=9I9B!T97%U/3TQ(-9T>3UY,=9I9B!T97%U/3TR(-9T
+M>3UY,M9I9B!T97%U/3TS(-9T>3UY,]9&;W(H=&DL,BPV+#$IUG@KOG1X''C6
+M3W5T<'0H=&DL,2QX*=9I9B!T9'`\,#IT:&5NUD]U='!T*'1I+#$Q+')O=6YD
+M*'1Y*2G696QS9=9/=71P="AT:2PQ,2QR;W5N9"AT>2QT9'`I*=9%;F0Z16YD
+MUD]U='!T*#<L,2PB0W5R<F5N="!F:7@Z(BG6268@=&1P/#`@UG1H96[63W5T
+M<'0H-RPQ,RPB1FQO870B*=9E;'-EUD]U='!T*#<L,3,L<F]U;F0H=&1P+#`I
+M*=9E;F363&)L(%1A8DUE;M9-96YU("@Q+")09U5P(BQ4<&=54"PR+")09T1N
+M(BQ$;TET+#,L(GD@861V(BQT>6%D=BPT+")$:6=I=',B+$1I9VET<RPU+")"
+M86-K(BQ-86EN*=9,8FP@5'!G55#61F]R*'1I+#$L,3`L,2G6>"V^='@<>-9%
+M;F361V]T;R!$;TETUDQB;"!T>6%D=M9T97%U*S$<=&5Q==9I9B!T97%U/C/6
+M,1QT97%UUD9O<BAT:2PQ+#4L,2G6>"V^='@<>-9%;F369V]T;R!$;TETUDQB
+M;"!$:6=I='/6=&1P*S$<=&1PUFEF('1D<#XV.AHQ''1D<-9&;W(H=&DL,2PU
+M+#$IUG@MOG1X''C616YDUF=O=&\@1&])=-9,8FP@5%%U:7360VQ,0T361&ES
+M<"`B5&AA;FMS(&9O<B!U<VEN9R+61&ES<"`B("`@("!404),12+61&ES<"`B
+M($,N2F]H;G-O;B`Q.3DU(M8B(AQT9'`Z(B(<=&5Q=3HB(AQT:3HB(AQT>#HB
+5(AR^='@Z(B(<='G64W1O<-;6UFVD
+`
+end
+----end uue----

@@ -1,0 +1,54 @@
+Hello world! .85s demo
+----begin documentation----
+
+Well, this is a pretty simple ZShell program. My first 
+ZShell program ever, which works !! ;-)
+
+Anyway, pretty simple, run it from the ZShell menu.
+
+All it does is put Hello World! on the screen.
+
+Hit EXIT to return.
+
+ASM source code below.
+Remember to UUD20 the string !!!!
+
+Hint: For those of you how have only got LINK85X.EXE and
+home made cables, rename all your .85? files(EXCEPT .85B 
+which are BACKUP files) to .85G - this will get 'em to come
+up on the menu. 
+
+Not very well commented source code I know, but, hey!, it
+gives that extra challenge to new ZShell people like me !!
+
+----end documentation----
+----begin ascii----
+#include "TI-85.H"
+
+.org 0
+.db "Hello  World",0
+
+        CALL_ROM(CLEARLCD)        
+
+        ld hl,(PROGRAM_ADDR)
+        ld de,HelloMessage
+        add hl,de
+        CALL_ROM(D_ZT_STR)
+Loop:        
+        call GET_KEY
+        cp $37
+        ret z
+        jr Loop
+HelloMessage:
+.db "Hello World :-)",0
+
+.end
+----end ascii----
+----begin uue----
+begin 644 hello.85s
+M*BI423@U*BH:#`!-86-H:6YE(&-O9&4@<W1O<F5D(&%S(&$@<W1R:6YG+B`@
+M("`@("`@1$5)``D`/``,!6AE;&QO/``Z``#^#$AE;&QO("!7;W)L9`#-"8S\
+H/2H\C!$F`!G-"8QH/LV^`?XWR!CX2&5L;&\@5V]R;&0@.BTI`)("&```
+`
+end
+----end uue----
